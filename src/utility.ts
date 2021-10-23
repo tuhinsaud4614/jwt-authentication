@@ -11,5 +11,5 @@ export interface ISuccessResponse {
   code: number;
   success: boolean;
   timeStamp: string;
-  data: any
+  data: any;
 }

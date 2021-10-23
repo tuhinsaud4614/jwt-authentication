@@ -45,11 +45,13 @@ app.use((err: HttpError, _: Request, res: Response, next: NextFunction) => {
   } as IErrorResponse);
 });
 
-connect(process.env.MONGO_DB_URI || "mongodb://localhost:27017/jwt-authentication")
+connect(
+  process.env.MONGO_DB_URI || "mongodb://localhost:27017/jwt-authentication"
+)
   .then(() => {
     logger.info(`Database connected successfully!!!`);
     app.listen(PORT, () => {
-        logger.info(`The application running on http://${HOST}:${PORT}`);
+      logger.info(`The application running on http://${HOST}:${PORT}`);
     });
   })
   .catch((er) => {

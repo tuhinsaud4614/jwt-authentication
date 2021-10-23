@@ -1,18 +1,18 @@
+import { hash } from "bcryptjs";
 import { RequestHandler } from "express";
+import logger from "../../logger";
 import User from "../../models/auth.model";
 import { HttpError } from "../../models/utility.model";
 import { ISuccessResponse } from "../../utility";
-import { hash } from "bcryptjs";
 
 const register: RequestHandler = async (req, res, next) => {
   try {
-
     const { email, name, password } = req.body as {
       name: string;
       email: string;
       password: string;
     };
-    
+
     const hashPassword = await hash(password.trim().toString(), 12);
 
     const newUser = await new User({
@@ -28,7 +28,8 @@ const register: RequestHandler = async (req, res, next) => {
       timeStamp: new Date().toISOString(),
     } as ISuccessResponse);
   } catch (error) {
-    return next(new HttpError("User creation failed!!!", 400));
+    logger.error(error);
+    return next(new HttpError("User creation failed", 400));
   }
 };
 
