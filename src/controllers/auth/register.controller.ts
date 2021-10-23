@@ -13,17 +13,17 @@ const register: RequestHandler = async (req, res, next) => {
       password: string;
     };
     
-    const hashPassword = await hash(password.toString(), 12);
+    const hashPassword = await hash(password.trim().toString(), 12);
 
-    await new User({
-      name: name,
+    const newUser = await new User({
+      name: name.trim(),
       email: email,
       password: hashPassword,
     }).save();
 
     return res.status(201).json({
       code: 201,
-      data: { email: email, name: name },
+      data: { email: newUser.email, name: newUser.name },
       success: true,
       timeStamp: new Date().toISOString(),
     } as ISuccessResponse);
