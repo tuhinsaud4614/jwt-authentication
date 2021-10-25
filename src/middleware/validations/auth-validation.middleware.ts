@@ -55,6 +55,12 @@ export const loginValidateSchema = yup.object().shape({
   }),
 });
 
+export const tokenValidateSchema = yup.object().shape({
+  body: yup.object().shape({
+    token: yup.string().required("Token is required."),
+  }),
+});
+
 // Check user exist or not
 export const userExistenceValidate = (
   errorWhen: "exist" | "not-exist",

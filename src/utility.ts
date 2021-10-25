@@ -1,5 +1,5 @@
 import { sign as jwtSign } from "jsonwebtoken";
-import redis_client from "./redis_connect";
+import redisClient from "./redis-connect";
 
 export interface IErrorResponse {
   code: number;
@@ -30,7 +30,7 @@ export const generateToken = (
   });
 
   if (settable) {
-    redis_client.set(userId, JSON.stringify(refresh_token), (err) => {
+    redisClient.set(userId, JSON.stringify(refresh_token), (err) => {
       if (err) {
         throw err;
       }
